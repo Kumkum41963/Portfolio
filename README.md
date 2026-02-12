@@ -340,3 +340,7 @@ export default {
     }
   }
 }
+
+
+
+well umm so i had merge conflicts because previously i had gitignore and readme files initiated when i created the repo now when new state came that caused conflicts because i didnt pull origin main previously 
