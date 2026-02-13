@@ -1,14 +1,7 @@
-import * as React from "react";
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
 import { ActionBtn } from "..";
-
-/**
- * @typedef {Object} NavItem
- * @property {string} label - Display text for nav item
- * @property {string} href - Anchor selector for scroll target
- * @property {string} testId - Test identifier
- */
 
 // Navigation items configuration - defines all portfolio sections
 const navItems = [
@@ -19,11 +12,11 @@ const navItems = [
 ];
 
 export default function Navbar() {
-  const [open, setOpen] = React.useState(false);
-  const [scrolled, setScrolled] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   // Monitor scroll position to apply visual changes (blur, background)
-  React.useEffect(() => {
+  useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -54,7 +47,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between py-4 md:py-5">
           {/* Banner Btn */}
           <button
-            // onClick={() => handleNavClick("#banner")}
+            onClick={() => handleNavClick("#banner")}
             className="group inline-flex items-center gap-3 focus-ring rounded-2xl"
             data-testid="brand"
           >
@@ -75,7 +68,7 @@ export default function Navbar() {
             {navItems.map((item) => (
               <button
                 key={item.href}
-                // onClick={() => handleNavClick(item.href)}
+                onClick={() => handleNavClick(item.href)}
                 className="rounded-2xl px-4 py-2 text-sm font-semibold text-foreground/80 hover:text-foreground hover:bg-white/5 focus-ring transition-all duration-300"
                 data-testid={item.testId}
               >
@@ -89,7 +82,7 @@ export default function Navbar() {
 
             <ActionBtn
               variant="secondary"
-              // onClick={handleSecondary}
+              onClick={handleSecondary}
               data-testid="nav-cta-secondary"
               rightIcon="none"
             >
@@ -98,7 +91,7 @@ export default function Navbar() {
 
             <ActionBtn
               variant="primary"
-              // onClick={handlePrimary}
+              onClick={handlePrimary}
               data-testid="nav-cta-primary"
             >
               {/* the passed children to child component */}
@@ -109,8 +102,8 @@ export default function Navbar() {
 
           <button
             className="md:hidden inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-border/60 bg-card/40 backdrop-blur focus-ring transition-all duration-300 hover:bg-card/55"
-            // onClick={() => setOpen((v) => !v)}
-            // aria-label={open ? "Close menu" : "Open menu"}
+            onClick={() => setOpen((v) => !v)}
+            aria-label={open ? "Close menu" : "Open menu"}
             data-testid="nav-mobile-toggle"
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -145,7 +138,7 @@ export default function Navbar() {
                 <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
                   <ActionBtn
                     variant="secondary"
-                    // onClick={handleSecondary}
+                    onClick={handleSecondary}
                     data-testid="nav-mobile-cta-secondary"
                     rightIcon="none"
                   >
@@ -153,7 +146,7 @@ export default function Navbar() {
                   </ActionBtn>
                   <ActionBtn
                     variant="primary"
-                    // onClick={handlePrimary}
+                    onClick={handlePrimary}
                     data-testid="nav-mobile-cta-primary"
                   >
                     View work

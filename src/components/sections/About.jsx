@@ -1,43 +1,13 @@
 import * as React from "react";
-import {
-  CheckCircle2,
-  Terminal,
-  Globe,
-  Search,
-  Activity,
-} from "lucide-react";
+import { CheckCircle2, Activity } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-
-const focusItems = [
-  {
-    icon: Terminal,
-    title: "Logic & Scripting",
-    desc: "Focusing on clean, readable JavaScript and understanding how data flows through the backend.",
-    testId: "about-focus-logic",
-  },
-  {
-    icon: Globe,
-    title: "Full Stack Flow",
-    desc: "Connecting databases to the UI, ensuring that APIs are reliable and easy to consume.",
-    testId: "about-focus-flow",
-  },
-  {
-    icon: Search,
-    title: "Problem Solving",
-    desc: "A dedication to deep-diving into documentation and debugging until the root cause is found.",
-    testId: "about-focus-debugging",
-  },
-];
-
-const principles = [
-  "Build it once to learn it, rebuild it to optimize it.",
-  "Clear documentation is as important as clear code.",
-  "Never stop asking 'why' a specific tool is being used.",
-];
+import { portfolioData } from "@/utils/portfolioData";
 
 export default function About() {
+  const { about } = portfolioData;
+
   return (
-    <section id="about" className="relative overflow-hidden">
+    <section id="about" className="relative  overflow-hidden scroll-mt-20">
       <div className="container-pad py-14 sm:py-16 md:py-20">
 
         {/* Section Header */}
@@ -48,7 +18,7 @@ export default function About() {
           >
             <span className="inline-flex items-center gap-2">
               <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-              About Me
+              {about.badge}
             </span>
           </Badge>
         </div>
@@ -58,16 +28,13 @@ export default function About() {
           {/* Left Column */}
           <div className="lg:col-span-5 reveal">
             <h2 className="text-3xl sm:text-4xl leading-tight font-medium">
-              Curious about the <br />
-              <span className="text-primary italic">full cycle</span> of development.
+              {about.heading.regular} <br />
+              <span className="text-primary italic">{about.heading.italic}</span> {about.heading.suffix}
             </h2>
 
-            <p className="mt-2 text-muted-foreground leading-relaxed max-w-md">
-              <p> I am an aspiring software engineer focused on the fundamentals.
-                Rather than just making things "look pretty", I enjoy understanding
-                how the server talks to the database and how to write code that
-                other developers can actually read.</p>
-            </p>
+            <div className="mt-2 text-muted-foreground leading-relaxed max-w-md">
+              <p>{about.bio}</p>
+            </div>
 
             {/* Principles Box */}
             <div className="mt-2 rounded-3xl border border-border/65 bg-white/3 p-6 elevate elevate-hover">
@@ -75,7 +42,7 @@ export default function About() {
                 Learning Mindset
               </div>
               <ul className="mt-4 space-y-3">
-                {principles.map((p, idx) => (
+                {about.principles.map((p, idx) => (
                   <li key={idx} className="flex items-start gap-3 text-sm text-foreground/80">
                     <CheckCircle2 className="mt-0.5 h-4 w-4 text-primary shrink-0" />
                     <span>{p}</span>
@@ -90,7 +57,7 @@ export default function About() {
 
             {/* Focus Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {focusItems.map((item) => {
+              {about.focusItems.map((item) => {
                 const Icon = item.icon;
                 return (
                   <div key={item.title} className="rounded-3xl border border-border/65 bg-card/40 p-5 hover:border-primary/40 transition-colors">
@@ -113,22 +80,18 @@ export default function About() {
                     <p>Current Stack</p> <p>&</p> <p>Learning</p>
                   </div>
                   <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-                    Currently deepening my knowledge in Node.js runtime,
-                    exploring Relational Database Design, and learning how to
-                    deploy robust applications using modern CI/CD workflows.
+                    {about.growth.stackDesc}
                   </p>
                 </div>
 
                 {/* Growth Stats */}
                 <div className="grid grid-cols-2 gap-3 min-w-[240px]">
-                  <div className="rounded-2xl border border-border/60 bg-card/40 p-4">
-                    <div className="text-xl font-bold text-primary">Daily</div>
-                    <div className="text-[10px] uppercase font-medium text-muted-foreground">Commits & Learning</div>
-                  </div>
-                  <div className="rounded-2xl border border-border/60 bg-card/40 p-4">
-                    <div className="text-xl font-bold text-primary">100%</div>
-                    <div className="text-[10px] uppercase font-medium text-muted-foreground">Commitment to Growth</div>
-                  </div>
+                  {about.growth.stats.map((stat, idx) => (
+                    <div key={idx} className="rounded-2xl border border-border/60 bg-card/40 p-4">
+                      <div className="text-xl font-bold text-primary">{stat.value}</div>
+                      <div className="text-[10px] uppercase font-medium text-muted-foreground">{stat.sub}</div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>

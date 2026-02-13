@@ -1,8 +1,8 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
-import { 
-  SiReact, SiTypescript, SiTailwindcss, SiNodedotjs, 
-  SiPostgresql, SiVite, SiDocker, SiGit, SiFigma 
+import {
+  SiReact, SiTypescript, SiTailwindcss, SiNodedotjs,
+  SiPostgresql, SiVite, SiDocker, SiGit, SiFigma
 } from "react-icons/si";
 
 // Helper to map text to icons
@@ -20,6 +20,8 @@ const getIcon = (item) => {
   };
   return iconMap[item] || null;
 };
+
+// ... keep imports and getIcon helper the same
 
 export default function SkillCard({ title, description, items, testId }) {
   return (
@@ -46,17 +48,23 @@ export default function SkillCard({ title, description, items, testId }) {
       </p>
 
       <div className="mt-5 flex flex-wrap gap-2" data-testid={`${testId}-chips`}>
-        {items.map((item) => (
-          <span
-            key={item}
-            className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-white/3 px-3 py-2 text-xs font-medium text-foreground/85 hover:bg-white/8 hover:border-primary/30 transition-all duration-300"
-            data-testid={`${testId}-chip-${item.replace(/\s+/g, "-").toLowerCase()}`}
-          >
-            {/* Renders the logo if found */}
-            <span className="text-base">{getIcon(item)}</span>
-            {item}
-          </span>
-        ))}
+        {items.map((item) => {
+          // Determine if item is an object (new data) or string (old data)
+          const itemName = typeof item === 'object' ? item.name : item;
+
+          return (
+            <span
+              key={itemName}
+              className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-white/3 px-3 py-2 text-xs font-medium text-foreground/85 hover:bg-white/8 hover:border-primary/30 transition-all duration-300"
+              // Fix: use itemName here
+              data-testid={`${testId}-chip-${itemName.replace(/\s+/g, "-").toLowerCase()}`}
+            >
+              {/* Fix: use itemName for the icon helper */}
+              <span className="text-base">{getIcon(itemName)}</span>
+              {itemName}
+            </span>
+          );
+        })}
       </div>
     </div>
   );

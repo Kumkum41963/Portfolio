@@ -7,7 +7,7 @@ import { Mail, MapPin, Phone } from "lucide-react";
 
 export default function Contact() {
   return (
-    <section id="contact" className="relative">
+    <section id="contact" className="relative overflow-hidden scroll-mt-5">
       <div className="container-pad py-14 sm:py-16 md:py-20">
 
         {/* Badge kicker */}
