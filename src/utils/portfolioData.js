@@ -120,10 +120,5 @@ export const portfolioData = {
         badge: "Connect",
         title: "Contact",
         subtitle: "If you’re building something thoughtful and need design-forward engineering, I’d love to hear about it.",
-        info: [
-            { icon: Mail, label: "Email", value: "hello@example.com", copyable: true },
-            { icon: Phone, label: "Phone", value: "+1 (555) 010-0200", copyable: true },
-            { icon: MapPin, label: "Location", value: "Remote · Flexible time zones", copyable: false },
-        ]
     }
 };

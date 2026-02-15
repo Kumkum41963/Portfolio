@@ -4,6 +4,10 @@ import { Menu, X } from "lucide-react";
 import { ActionBtn } from "..";
 
 // Navigation items configuration - defines all portfolio sections
+// label → text shown in navbar
+// href → section id to scroll to (#about)
+// testId → used for testing (ignore for logic)
+// Using id and anchor tag we handle scrolling navigation
 const navItems = [
   { label: "About", href: "#about", testId: "nav-about" },
   { label: "Skills", href: "#skills", testId: "nav-skills" },
@@ -12,12 +16,12 @@ const navItems = [
 ];
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false); // mobile menu controller 
+  const [scrolled, setScrolled] = useState(false); // tracks page scrolled or not
 
   // Monitor scroll position to apply visual changes (blur, background)
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => setScrolled(window.scrollY > 100);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -25,11 +29,12 @@ export default function Navbar() {
 
   // Smooth scroll to anchor link and close mobile menu
   const handleNavClick = (href) => {
-    setOpen(false);
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    setOpen(false); // close mobile menu incase open
+    const el = document.querySelector(href); // find the element with that id (nav-item's id to be found onCLick)
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); // scroll to section with good css
   };
 
+  // Calling for CTA btn (Get in touch and View Work)
   const handlePrimary = () => handleNavClick("#projects");
   const handleSecondary = () => handleNavClick("#contact");
 
@@ -65,10 +70,11 @@ export default function Navbar() {
 
           {/* All Nav Items */}
           <nav className="hidden md:flex items-center gap-1" aria-label="Primary">
+            {/* map each item from nav item */}
             {navItems.map((item) => (
               <button
                 key={item.href}
-                onClick={() => handleNavClick(item.href)}
+                onClick={() => handleNavClick(item.href)} // call fxn with id passed
                 className="rounded-2xl px-4 py-2 text-sm font-semibold text-foreground/80 hover:text-foreground hover:bg-white/5 focus-ring transition-all duration-300"
                 data-testid={item.testId}
               >
@@ -100,9 +106,10 @@ export default function Navbar() {
 
           </div>
 
+          {/* Mobile menu btn fires when dimensions are matched for mobile*/}
           <button
             className="md:hidden inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-border/60 bg-card/40 backdrop-blur focus-ring transition-all duration-300 hover:bg-card/55"
-            onClick={() => setOpen((v) => !v)}
+            onClick={() => setOpen((v) => !v)} // check ig mobile nav is open or not
             aria-label={open ? "Close menu" : "Open menu"}
             data-testid="nav-mobile-toggle"
           >
@@ -111,6 +118,7 @@ export default function Navbar() {
         </div>
 
         {/* Movile Navigation */}
+        {/* Display mobile nav only when open is true else nothing (null) */}
         {open ?
           (
             <div

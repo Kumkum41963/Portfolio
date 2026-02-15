@@ -3,6 +3,7 @@ import { ActionBtn, ProfileCard } from "..";
 import { Badge } from "@/components/ui/badge";
 import { ArrowDown } from "lucide-react";
 import { portfolioData } from "@/utils/portfolioData";
+import { SocialLinksBar } from "..";
 
 function Banner() {
   const { banner } = portfolioData;
@@ -64,16 +65,9 @@ function Banner() {
                 </ActionBtn>
               </div>
 
-              {/* Pills / Tags Section */}
-              <div className="mt-10 flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
-                {banner.pills.map((pill, idx) => (
-                  <span
-                    key={idx}
-                    className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-white/3 px-3 py-1.5 text-white"
-                  >
-                    {pill}
-                  </span>
-                ))}
+              {/* Socials */}
+              <div className="mt-10">
+                <SocialLinksBar />
               </div>
 
               {/* Scroll Hint */}

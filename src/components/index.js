@@ -14,6 +14,8 @@ export { default as ProjectCard } from './customUi/ProjectCard';
 export { default as SkillCard } from './customUi/SkillCard';
 export { default as ActionBtn } from './customUi/ActionBtn';
 export { default as ProfileCard } from './customUi/ProfileCard'
+export { default as SocialLink } from './customUi/SocialLink'
+export {default as SocialLinksBar} from './customUi/SocialLinksBar'
 
 // Main Page
 export { default as Home } from '../pages/Home'
