@@ -18,7 +18,17 @@ function App() {
       </BrowserRouter>
 
       {/* This allows those toast alerts to show up anywhere */}
-      <Toaster />
+      <Toaster
+        toastOptions={{
+          unstyled: true,
+          classNames: {
+            toast: "group flex items-center w-auto max-w-[400px] gap-3 p-4 rounded-2xl bg-card/90 backdrop-blur-md border border-border/50 shadow-[0_8px_32px_rgba(0,0,0,0.5),0_0_15px_rgba(64,224,208,0.1)] text-foreground pointer-events-auto",
+            title: "text-sm font-bold leading-none",
+            description: "text-xs text-muted-foreground mt-1",
+            actionButton: "bg-primary text-primary-foreground text-xs px-3 py-1.5 rounded-lg font-medium",
+          },
+        }}
+      />
     </TooltipProvider>
   );
 }

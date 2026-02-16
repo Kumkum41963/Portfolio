@@ -8,24 +8,39 @@ import { Mail, MapPin } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { portfolioData } from "@/utils/portfolioData";
 import { toast } from "sonner"
+import axios from 'axios'
 
 export default function Contact() {
   const { contact } = portfolioData
 
-  const { register, handleSubmit, formState: { errors } } = useForm()
+  const { register, handleSubmit, reset, formState: { errors } } = useForm()
 
   const [loading, setLoading] = useState(false) // to show wether message is sent or not (success or still messaging)
   const [error, setError] = useState("")
 
+  // React hook form automatically send the form data to the fxn called in data (no need  of states to track them all)
   const connect = async (data) => {
-    setError("")
-    setLoading(true)
+    setError("");
+    setLoading(true);
     try {
-      const res = await axios.post(URL)
+      // data contains { name, email, message } automatically
+      const res = await axios.post('http://localhost:3000/contact', data);
+
+      console.log('Server response:', res.data);
+
+      reset(); // cleaar the form data
+
+      toast.success("Message Sent! Thanks for reaching out.");
+
+      // Optional: reset() the form here if you want
     } catch (error) {
-      setError(error)
+      console.error('Submission error:', error.response?.data || error.message);
+      toast.error("Failed to send message.");
+      setError(error.message);
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
   const copyEmail = () => {
     navigator.clipboard.writeText("kumkum19305@gmail.com")
@@ -111,10 +126,20 @@ export default function Contact() {
                     <Input
                       placeholder="Your name"
                       type="text"
+
                       className="bg-black/20 border-border/40 focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
-                      {...register("name",
-                        { required: "Name is required" }
-                      )}
+                      {...register("name", {
+                        required: "Name is required",
+                        pattern: {
+                          // This regex allows uppercase, lowercase, and spaces
+                          value: /^[A-Za-z\s]+$/i,
+                          message: "Enter a valid name"
+                        },
+                        minLength: {
+                          value: 2,
+                          message: "Enter a valid name"
+                        }
+                      })}
                     />
                     {errors.name && <p className="text-[10px] text-red-500">{errors.name.message}</p>}
                   </div>
@@ -125,16 +150,16 @@ export default function Contact() {
                     <Input
                       placeholder="you@company.com"
                       type="email"
+
                       className="bg-black/20 border-border/40 focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
-                      {...register("email",
-                        {
-                          required: "Email is required",
-                          pattern: {
-                            value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                            message: "Kindly enter a valid email"
-                          }
+                      {...register("email", {
+                        required: "Email is required",
+                        pattern: {
+                          // This looks for @, then a domain, then a .com/.org/.net/etc (2-6 chars)
+                          value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|net|org|edu|gov|io|me|co|biz)$/i,
+                          message: "Enter a valid email"
                         }
-                      )}
+                      })}
                     />
                     {errors.email && <p className="text-[10px] text-red-500">{errors.email.message}</p>}
                   </div>
@@ -146,18 +171,20 @@ export default function Contact() {
                   <Textarea
                     placeholder="Tell me what you're building..."
                     className="min-h-[140px] bg-black/20 border-border/40 focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all resize-none"
-                    {...register("message",
-                      {
-                        required: "Kindly enter a message"
+                    {...register("message", {
+                      required: "Kindly enter a message",
+                      minLength: {
+                        value: 20,
+                        message: "Enter a valid message"
                       }
-                    )}
+                    })}
                   />
                   {errors.message && <p className="text-[10px] text-red-500">{errors.message.message}</p>}
                 </div>
 
                 {/* Submit */}
                 <div className="pt-2">
-                  <ActionBtn type="submit" variant="primary">
+                  <ActionBtn type="submit" variant="primary" >
                     Send message
                   </ActionBtn>
                 </div>
