@@ -3,7 +3,9 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 dotenv.config();
 import { connectDB } from './connectDb.js'
-import { Contact } from './contact.js'
+import { Contact } from './contact.model.js'
+
+import { sendContactMails } from './email.service.js';
 
 // create app
 const app = express()
@@ -36,9 +38,13 @@ app.post('/contact', async (req, res) => {
 
         const newContact = new Contact(contactData)
         await newContact.save()
-        
+
+        // Send mails 
+        const emailInfo = await sendContactMails(name, email, message)
+
         console.log(`📩 New message from ${name} (${email})`);
-        res.status(200).json({ message: 'Saved successfully!', received: contactData });
+        console.log('Received and Email sent.')
+        res.status(200).json({ message: 'Saved and Emailed successfully!', received: contactData, emaiSent: emailInfo });
     } catch (error) {
         console.error("Error saving contact:", error);
         res.status(500).json({ error: "Server failed to save data" });
