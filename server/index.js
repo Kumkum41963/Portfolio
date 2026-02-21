@@ -6,6 +6,7 @@ import { connectDB } from './connectDb.js'
 import { Contact } from './contact.model.js'
 
 import { sendContactMails } from './email.service.js';
+import { limiter } from './rateLimiter.middleware.js'
 
 // create app
 const app = express()
@@ -17,9 +18,11 @@ app.use(cors({
     allowedHeaders: ['Content-Type']
 }))
 app.use(express.json()) // intercept, check and parse the incoming request
+app.use(limiter) // limits the incoming requests
 
 // DB connection always before anything else
 connectDB()
+console.log('DB connected')
 
 // test route
 app.post('/contact', async (req, res) => {
