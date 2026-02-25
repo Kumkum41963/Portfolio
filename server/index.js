@@ -11,15 +11,23 @@ import { contact } from './controller/contact.controller.js'
 // create app
 const app = express()
 
+// const corsOptions = {
+//     origin: process.env.CLIENT_URL,
+//     // origin: '*',
+//     methods: ['GET', 'POST', 'OPTIONS'],
+//     allowedHeaders: ['Content-Type']
+// }
+
 const corsOptions = {
-    origin: process.env.CLIENT_URL,
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type']
-}
+  origin: 'http://localhost:5173', // Must match your Vite URL exactly
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+};
 
 // Middlewares
 app.use(helmet()) // global protection against http headers
-app.use(ExpressMongoSanitize()) // sanitation
+// app.use(ExpressMongoSanitize()) // sanitation
 app.use(cors(corsOptions)) // backend frontend connect
 app.use(express.json()) // intercept, check and parse the incoming request
 app.use(limiter) // limits the incoming requests
@@ -44,9 +52,9 @@ console.log('DB connected')
 
 // test route
 
-app.post('/', (req, res) => {
-    res.send('POST request to the homepage')
-})
+// app.post('/', (req, res) => {
+//     res.send('POST request to the homepage')
+// })
 
 // Contact controller
 app.use('/', contact)
