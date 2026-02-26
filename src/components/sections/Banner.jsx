@@ -1,9 +1,11 @@
 import * as React from "react";
 import { ActionBtn, ProfileCard } from "..";
 import { Badge } from "@/components/ui/badge";
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, Download } from "lucide-react";
 import { portfolioData } from "@/utils/portfolioData";
 import { SocialLinksBar } from "..";
+import { Button } from "../ui/button";
+import { cn } from "@/lib/utils";
 
 function Banner() {
   const { banner } = portfolioData;
@@ -21,6 +23,10 @@ function Banner() {
   const handleScrollHint = () => {
     const el = document.querySelector("#about");
     el?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const handleDownloadResume = () => {
+    console.log("Resume is being downloaded...");
   };
 
   return (
@@ -63,10 +69,39 @@ function Banner() {
                 <ActionBtn variant="secondary" onClick={handleSecondary} rightIcon="none">
                   Contact me
                 </ActionBtn>
+
+              </div>
+
+
+              <div className="mt-5">
+                <Button
+                  variant="primary"
+                  onClick={handleDownloadResume}
+                  data-testid="download-resume-btn"
+                  className={cn(
+                    // Base Styling
+                    "relative group overflow-hidden px-8 py-4 rounded-2xl transition-all duration-500",
+                    "bg-primary/10 backdrop-blur-md border border-primary/30 text-primary font-bold tracking-widest text-[10px] uppercase",
+
+                    // The "Turquoise Glow" Effect
+                    "hover:bg-primary hover:text-primary-foreground hover:shadow-[0_0_30px_rgba(64,224,208,0.5)]",
+                    "active:scale-95",
+
+                    // Custom Animation
+                    "animate-reveal"
+                  )}
+                >
+                  <span className="relative z-10 flex items-center gap-2">
+                    <Download size={16} className="group-hover:translate-y-0.5 transition-transform duration-300" />
+                    Download Resume
+                  </span>
+                  {/* Radiant Hover Effect (The "Sweep") */}
+                  <div className="absolute inset-0 z-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shimmer" />
+                </Button>
               </div>
 
               {/* Socials */}
-              <div className="mt-10">
+              <div className="mt-5">
                 <SocialLinksBar />
               </div>
 

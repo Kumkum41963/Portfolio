@@ -8,6 +8,7 @@ export { default as About } from './sections/About';
 export { default as Skills } from './sections/Skills'
 export { default as Projects } from './sections/Projects';
 export { default as Contact } from './sections/Contact';
+export { default as Resume } from './sections/Resume';
 
 // Customised UI Elements 
 export { default as ProjectCard } from './customUi/ProjectCard';
@@ -16,9 +17,5 @@ export { default as ActionBtn } from './customUi/ActionBtn';
 export { default as ProfileCard } from './customUi/ProfileCard'
 export { default as SocialLink } from './customUi/SocialLink'
 export {default as SocialLinksBar} from './customUi/SocialLinksBar'
-
-// Main Page
-export { default as Home } from '../pages/Home'
-export { default as NotFound } from '../pages/NotFound'
 
 

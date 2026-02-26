@@ -2,7 +2,8 @@ import React from 'react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { Toaster } from './components/ui/sonner';
 import { TooltipProvider } from './components/ui/tooltip';
-import { Home, NotFound } from './components';
+import { Home, NotFound, Admin } from './pages';
+import { Resume, Navbar, Footer } from './components';
 
 function App() {
   return (
@@ -10,11 +11,15 @@ function App() {
     <TooltipProvider>
 
       <BrowserRouter>
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/sarkare" element={<Admin />} />
+          <Route path="/resume" element={<Resume />} />
           {/* This catches any URL that doesn't exist */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
 
       {/* This allows those toast alerts to show up anywhere */}
