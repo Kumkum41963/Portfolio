@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navbar, Footer, Banner, About, Skills, Projects, Contact, Resume } from '../components'
+import {  Banner, About, Skills, Projects, Contact, Github } from '../components'
 
 function Home() {
     return (
@@ -7,6 +7,7 @@ function Home() {
             <div className="relative z-10">
                 <Banner />
                 <About />
+                <Github/>
                 <Skills />
                 <Projects />
                 <Contact />

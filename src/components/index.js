@@ -9,6 +9,7 @@ export { default as Skills } from './sections/Skills'
 export { default as Projects } from './sections/Projects';
 export { default as Contact } from './sections/Contact';
 export { default as Resume } from './sections/Resume';
+export {default as Github} from './sections/Github'
 
 // Customised UI Elements 
 export { default as ProjectCard } from './customUi/ProjectCard';
