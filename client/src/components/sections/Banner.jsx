@@ -1,0 +1,135 @@
+import * as React from "react";
+import { ActionBtn, ProfileCard } from "..";
+import { Badge } from "@/components/ui/badge";
+import { ArrowDown, Download } from "lucide-react";
+import { portfolioData } from "@/utils/portfolioData";
+import { SocialLinksBar } from "..";
+import { Button } from "../ui/button";
+import { cn } from "@/lib/utils";
+
+function Banner() {
+  const { banner } = portfolioData;
+
+  const handlePrimary = () => {
+    const el = document.querySelector("#projects");
+    el?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const handleSecondary = () => {
+    const el = document.querySelector("#contact");
+    el?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const handleScrollHint = () => {
+    const el = document.querySelector("#about");
+    el?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const pdfUrl = "/Resume.pdf"
+  const handleDownloadResume = () => {
+    console.log("Resume is being downloaded...");
+    const link = document.createElement('a');
+    link.href = pdfUrl;
+    link.download = 'Resume.pdf';
+    link.click();
+  };
+
+
+  return (
+    <section id="banner" className="relative ">
+      <div className="container-pad pt-8 sm:pt-10 md:pt-14 lg:pt-16">
+        <div className="grid items-start gap-8 lg:grid-cols-12 lg:gap-10">
+
+          {/* Left Content Column */}
+          <div className="lg:col-span-7">
+            <div className="reveal" data-testid="hero-left">
+              <Badge
+                className="rounded-full border-border/70 bg-white/5 text-foreground/90 px-4 py-1.5"
+                data-testid="hero-kicker"
+              >
+                <span className="inline-flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                  {banner.badge}
+                </span>
+              </Badge>
+
+              <h1
+                className="mt-6 text-balance text-4xl sm:text-5xl md:text-6xl leading-[1.05]"
+                data-testid="hero-headline"
+              >
+                {banner.title}
+              </h1>
+
+              <p
+                className="mt-5 max-w-2xl text-pretty text-base sm:text-lg text-muted-foreground leading-relaxed"
+                data-testid="hero-subtitle"
+              >
+                {banner.subtitle}
+              </p>
+
+              {/* Action Buttons */}
+              <div className="mt-7 flex flex-col sm:flex-row gap-3 sm:items-center">
+                <ActionBtn variant="primary" onClick={handlePrimary}>
+                  See my work
+                </ActionBtn>
+                <ActionBtn variant="secondary" onClick={handleSecondary} rightIcon="none">
+                  Contact me
+                </ActionBtn>
+
+              </div>
+
+
+              <div className="mt-5">
+                <Button
+                  variant="primary"
+                  onClick={handleDownloadResume}
+                  data-testid="download-resume-btn"
+                  className={cn(
+                    // Base Styling
+                    "relative group overflow-hidden px-8 py-4 rounded-2xl transition-all duration-500",
+                    "bg-primary/10 backdrop-blur-md border border-primary/30 text-primary font-bold tracking-widest text-[10px] uppercase",
+
+                    // The "Turquoise Glow" Effect
+                    "hover:bg-primary hover:text-primary-foreground hover:shadow-[0_0_30px_rgba(64,224,208,0.5)]",
+                    "active:scale-95",
+
+                    // Custom Animation
+                    "animate-reveal"
+                  )}
+                >
+                  <span className="relative z-10 flex items-center gap-2">
+                    <Download size={16} className="group-hover:translate-y-0.5 transition-transform duration-300" />
+                    Download Resume
+                  </span>
+                  {/* Radiant Hover Effect (The "Sweep") */}
+                  <div className="absolute inset-0 z-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shimmer" />
+                </Button>
+              </div>
+
+              {/* Socials */}
+              <div className="mt-5">
+                <SocialLinksBar />
+              </div>
+
+              {/* Scroll Hint */}
+              <button
+                onClick={handleScrollHint}
+                className="bg-slate-900 mt-10 inline-flex items-center gap-2 rounded-2xl px-3 py-2 text-sm font-semibold text-foreground/70 hover:text-foreground hover:bg-white/5 focus-ring transition-all duration-300"
+              >
+                <ArrowDown className="h-4 w-4" />
+                Explore
+              </button>
+            </div>
+          </div>
+
+          {/* Right Profile Card Column */}
+          <div className="lg:col-span-5 reveal reveal-delayed-2">
+            <ProfileCard />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default Banner;
