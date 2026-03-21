@@ -1,6 +1,6 @@
 # Kumkum — Full‑Stack & Backend Engineer
 
-Production‑focused engineer building reliable, scalable web systems with the MERN stack and cloud media pipelines.
+Aspiring production-focused engineer building reliable, scalable, and modular web systems. I value simplicity over unnecessary complexity and aim to create technology that delivers meaningful real-world impact.
 
 ---
 
@@ -8,7 +8,7 @@ Production‑focused engineer building reliable, scalable web systems with the M
 
 * **Role:** Full‑Stack Engineer (Backend‑leaning)
 * **Stack:** MongoDB • Express • React • Node.js • Cloudinary
-* **Focus Areas:** API design, system architecture, performance, clean code, maintainability
+* **Focus Areas:** API design, system architecture, performance, clean code, maintainability, simplicity
 * **Location:** Delhi, India (Open to Remote & Onsite)
 * **Status:** Open to internships & full‑time roles
 
@@ -23,7 +23,7 @@ I build thoughtfully engineered applications that balance strong backend foundat
 * REST API design & integration
 * Database schema design & query optimization
 * Authentication, authorization & security best practices
-* File/media pipelines with Cloudinary
+* File/media handling
 * Scalable service structure & modular architecture
 
 **Frontend strengths**
@@ -31,41 +31,6 @@ I build thoughtfully engineered applications that balance strong backend foundat
 * Responsive UI with React
 * State management & API integration
 * Accessible, performance‑aware components
-* Clean layouts with modern CSS
-
----
-
-## 🛠 Technical Stack
-
-**Core**
-
-* MongoDB
-* Express.js
-* React.js
-* Node.js
-
-**Backend & Infra**
-
-* REST APIs
-* JWT Auth
-* Cloudinary (media storage & optimization)
-* Docker (basics)
-
-**Frontend**
-
-* JavaScript (ES6+)
-* HTML5
-* CSS3
-* Tailwind CSS
-
-**Tools**
-
-* Git & GitHub
-* Postman
-* VS Code
-* Figma (dev collaboration)
-
----
 
 ## 📌 Experience Highlights
 
@@ -74,15 +39,6 @@ I build thoughtfully engineered applications that balance strong backend foundat
 * Implemented media upload, transformation, and delivery workflows
 * Focus on readable code, modular structure, and production readiness
 
----
-
-## 🎓 Education
-
-**B.Tech — Electronics & Communication Engineering**
-Indira Gandhi Delhi Technical University for Women
-CGPA: 8.34
-
----
 
 ## 🤝 Let’s Connect
 
