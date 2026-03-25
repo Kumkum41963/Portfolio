@@ -1,18 +1,21 @@
 import cloudinary from "../service/connectCloudinary.service.js";
 import { Resume } from "../models/resume.model.js";
 import { Contact } from "../models/contact.model.js";
+import streamifier from "streamifier";
 
 const handleUpload = fileBuffer => {
+    console.log(fileBuffer.slice(0, 5).toString());
     return new Promise((resolve, reject) => {
-        cloudinary.uploader
-            .upload_stream(
-                {
-                    folder: "Portfolio_Resume",
-                    resource_type: "auto",
-                },
-                (err, res) => (err ? reject(err) : resolve(res)),
-            )
-            .end(fileBuffer);
+        const uploadStream = cloudinary.uploader.upload_stream(
+            {
+                folder: "Portfolio_Resume",
+                resource_type: "raw",
+                format: "pdf",
+                access_mode: "public"
+            },
+            (err, res) => (err ? reject(err) : resolve(res)),
+        )
+        streamifier.createReadStream(fileBuffer).pipe(uploadStream);
     });
 };
 

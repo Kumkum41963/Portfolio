@@ -44,7 +44,7 @@ const Resume = () => {
         // Best practice for printing remote PDFs: use a hidden iframe
         const iframe = document.createElement('iframe');
         iframe.style.display = 'none';
-        iframe.src = pdfUrl;
+        iframe.src = pdfUrl + ".pdf";
         document.body.appendChild(iframe);
         iframe.onload = () => {
             iframe.contentWindow.print();
@@ -57,7 +57,7 @@ const Resume = () => {
         await triggerResumeAction('download'); // Track download in Admin
 
         const link = document.createElement('a');
-        link.href = pdfUrl;
+        link.href = pdfUrl + ".pdf";
         link.download = 'Resume.pdf';
         link.target = '_blank';
         document.body.appendChild(link);
@@ -112,7 +112,7 @@ const Resume = () => {
                 <div className="h-[78vh] w-full glass rounded-[2rem] border border-white/10 overflow-hidden shadow-2xl bg-black/20">
                     {pdfUrl ? (
                         <object
-                            data={`${pdfUrl}#toolbar=0&navpanes=0&scrollbar=0`}
+                            data={`${pdfUrl}.pdf#toolbar=0&navpanes=0&scrollbar=0`}
                             type="application/pdf"
                             className="w-full h-full"
                         >
