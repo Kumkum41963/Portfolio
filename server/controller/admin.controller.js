@@ -3,20 +3,25 @@ import { Resume } from "../models/resume.model.js";
 import { Contact } from "../models/contact.model.js";
 import streamifier from "streamifier";
 
-const handleUpload = fileBuffer => {
-    console.log(fileBuffer.slice(0, 5).toString());
-    return new Promise((resolve, reject) => {
-        const uploadStream = cloudinary.uploader.upload_stream(
-            {
-                folder: "Portfolio_Resume",
-                resource_type: "raw",
-                format: "pdf",
-                access_mode: "public"
-            },
-            (err, res) => (err ? reject(err) : resolve(res)),
-        )
-        streamifier.createReadStream(fileBuffer).pipe(uploadStream);
-    });
+const handleUpload = async (fileBuffer) => {
+    try {
+        console.log(fileBuffer.slice(0, 5).toString());
+        return new Promise(async (resolve, reject) => {
+            const uploadStream = await cloudinary.uploader.upload_stream(
+                {
+                    folder: "Portfolio_Resume",
+                    resource_type: "auto",
+                    format: "pdf",
+                    access_mode: "public"
+                },
+                (err, res) => (err ? reject(err) : resolve(res)),
+            )
+            streamifier.createReadStream(fileBuffer).pipe(uploadStream);
+            console.log('file response:', uploadStream.url);
+        });
+    } catch (error) {
+        
+    }
 };
 
 export const uploadResume = async (req, res) => {

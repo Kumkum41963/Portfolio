@@ -19,7 +19,14 @@ export const inputValidationSchema = z.object({
         max(5000, "Message must not exceed more than 1000 characters")
 })
 
-const storage = multer.memoryStorage()
+const storage = multer.diskStorage({
+    destination: function (req,file,cb) {
+        cb(null, './public')
+    },
+    filename: function (req,file,cb){
+        cb(null, file.originalname)
+    }
+})
 
 const upload = multer({
     storage: storage,
@@ -52,3 +59,5 @@ export const validateInputFile = (req, res, next) => {
         next()
     })
 }
+
+
