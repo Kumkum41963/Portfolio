@@ -13,7 +13,7 @@ import adminRoutes from './routes/admin.routes.js'
 const app = express()
 
 const corsOptions = {
-  origin: process.env.CLIENT_URL, 
+  origin: process.env.CLIENT_URL || process.env.CLIENT_LOCAL_URL, 
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
@@ -42,9 +42,6 @@ console.log('DB connected')
 // console.log(sanitizeHtml("console.log('hello world')"));
 // console.log('4')
 // console.log(sanitizeHtml("<script>alert('hello world')</script>"));
-
-
-
 
 // test route
 app.get('/api/test', (req, res) => {
