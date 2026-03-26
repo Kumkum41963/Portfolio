@@ -73,10 +73,10 @@ export const PortfolioProvider = ({ children }) => {
         try {
             console.log('Client sending formData to server')
             console.log('formData:', formData)
-            await api.contact.send(formData);
+            const result = await api.contact.send(formData);
             await refreshStats();
             toast.success("Message sent! I'll get back to you soon.");
-            return { success: true };
+            return { success: true, res: result };
         } catch (err) {
             toast.error("Message failed to send. Please try again.");
             console.log('Error in contact form:', err.message);

@@ -11,9 +11,23 @@ import adminRoutes from './routes/admin.routes.js'
 
 // create app
 const app = express()
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  process.env.CLIENT_LOCAL_URL
+];
+console.log("✅ Allowed Origins:", allowedOrigins);
 
 const corsOptions = {
-  origin: process.env.CLIENT_URL || process.env.CLIENT_LOCAL_URL, 
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true); // allow Postman / server-to-server
+
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      console.log("❌ Blocked by CORS:", origin);
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
@@ -45,8 +59,8 @@ console.log('DB connected')
 
 // test route
 app.get('/api/test', (req, res) => {
-    res.send('GET request to the admin')
-    console.log('connection established')
+  res.send('GET request to the admin')
+  console.log('connection established')
 })
 
 app.use('/api', adminRoutes);

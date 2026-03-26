@@ -37,8 +37,6 @@ export const contact = async (req, res) => {
         return res.status(200).json({
             success: true,
             message: 'Inquiry processed successfully',
-            received: contactData,
-            emailSent: emailInfo
         });
 
     } catch (error) {
