@@ -9,7 +9,11 @@ const transporter = nodemailer.createTransport({
     auth: {
         user: process.env.GMAIL_USER,
         pass: process.env.GMAIL_PASS
-    }
+    },
+    // Timeouts for production feasibility
+    connectionTimeout: 10000, // 10 seconds
+    greetingTimeout: 10000,
+    socketTimeout: 15000,
 });
 
 export const sendContactMails = async (contacterName, contacterEmail, contacterMessage) => {
@@ -34,20 +38,24 @@ export const sendContactMails = async (contacterName, contacterEmail, contacterM
     };
 
     try {
-        // Promise.all sends both emails at the same time
-        const [infoUser, infoAdmin] = await Promise.all([
-            transporter.sendMail(confirmationMail),
-            transporter.sendMail(adminMail)
-        ]);
+        // I could have done parallely concurrently but then that would have caused some more complexity and issues
+        // since admin can hold more or wait more to get the mail thus we can make a do by sequential here
+        // 1. Send Admin Mail
+        const infoAdmin = await transporter.sendMail(adminMail);
+        console.log('✅ Admin notification sent');
+
+        // 2. Send User Mail
+        const infoUser = await transporter.sendMail(confirmationMail);
+        console.log('✅ User confirmation sent');
 
         console.log('✅ Gmail messages sent successfully');
         return {
             success: true,
-            userPreview: nodemailer.getTestMessageUrl(infoUser),
-            adminPreview: nodemailer.getTestMessageUrl(infoAdmin)
+            adminMessageId: infoAdmin.messageId,
+            userMessageId: infoUser.messageId
         };
     } catch (error) {
-       console.error('❌ Gmail Error:', error.message);
+        console.error('❌ Gmail Error:', error.message);
         throw new Error('Email service failed');
     }
 

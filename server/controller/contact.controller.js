@@ -32,7 +32,8 @@ export const contact = async (req, res) => {
         // Email dispatch
         console.log('📧 [Email] Sending notifications...');
         const emailInfo = await sendContactMails(name, email, message);
-        console.log('✨ [Email] Dispatch successful');
+        console.log('✨ [Email] Dispatch successful', emailInfo);
+    
 
         return res.status(200).json({
             success: true,
